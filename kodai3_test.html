@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：③ 縄文・弥生・邪馬台国</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">③ 縄文・弥生・邪馬台国（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='kodai3';const PASS_SCORE=70;const NEXT="kofun1.html";
+const questions=[{"q": "1946年に群馬県で発見され、日本に旧石器時代があったことを明らかにした遺跡はどれですか。", "choices": ["吉野ヶ里遺跡", "三内丸山遺跡", "岩宿遺跡", "登呂遺跡"], "ans": 2, "exp": "岩宿遺跡で打製石器が見つかり、日本の旧石器時代が明らかになりました。吉野ヶ里・登呂は弥生、三内丸山は縄文の遺跡です。"}, {"q": "縄文時代のくらしについて、正しい説明はどれですか。", "choices": ["青銅器の銅鐸を祭りに使った", "魏の皇帝から称号を授かった", "縄文土器を使い、竪穴住居に住んで、狩りや採集で暮らした", "水田で稲作を行い、高床倉庫に稲を保存した"], "ans": 2, "exp": "縄文時代は縄文土器・竪穴住居・狩りと採集が特徴です。稲作や青銅器は弥生時代のことです。"}, {"q": "縄文時代の遺跡・遺物の組み合わせとして、正しいものはどれですか。", "choices": ["貝塚・土偶", "環濠集落・金印", "石包丁・鉄器", "高床倉庫・銅鐸"], "ans": 0, "exp": "貝塚・土偶は縄文時代です。ほかの組み合わせは、弥生時代のものです。"}, {"q": "稲作が日本に伝わった経路と時期として、正しいものはどれですか。", "choices": ["古墳時代に朝鮮半島から初めて伝わった", "旧石器時代に大陸から伝わった", "縄文時代の初めに東日本から伝わった", "紀元前4世紀ごろ、大陸から九州北部に伝わった"], "ans": 3, "exp": "稲作は、大陸から九州北部に伝わり、東へ広がりました。"}, {"q": "弥生時代の道具や建物について、正しい説明はどれですか。", "choices": ["弓矢で稲を収穫した", "石包丁で稲の穂をつみ取り、高床倉庫に保存した", "貝塚で稲を育てた", "竪穴住居で稲を保存した"], "ans": 1, "exp": "石包丁で穂をつみ取り、高床倉庫で保存しました。"}, {"q": "弥生時代に、おもに祭りの道具として使われた金属器はどれですか。", "choices": ["銅鐸", "鉄剣", "土偶", "石包丁"], "ans": 0, "exp": "銅鐸などの青銅器は、おもに祭りの道具でした。鉄器は武器や農具として使われました。"}, {"q": "吉野ヶ里遺跡の特徴として、正しいものはどれですか。", "choices": ["旧石器時代の遺跡である", "古墳時代の大きな墓である", "堀や柵でかこまれた、弥生時代の環濠集落である", "縄文時代の貝塚である"], "ans": 2, "exp": "吉野ヶ里遺跡は、争いに備えた弥生時代の環濠集落です。"}, {"q": "弥生時代にムラとムラの争いが起こった原因として、正しいものはどれですか。", "choices": ["氷河時代の寒さで食料が不足したから", "稲作が広がり、収穫物や土地、水をめぐって対立が起こったから", "貝塚が廃棄されたから", "邪馬台国が魏にほろぼされたから"], "ans": 1, "exp": "稲作の広がりで、収穫物・土地・水をめぐる争いが起こりました。"}, {"q": "志賀島で発見された「漢委奴国王」の金印について、正しい説明はどれですか。", "choices": ["239年に、卑弥呼が魏の皇帝から授かった", "邪馬台国の王が、漢から授かった", "縄文時代の王が、魏の皇帝から授かった", "57年に、奴国の王が後漢の皇帝から授かった"], "ans": 3, "exp": "金印は、57年に奴国の王が、後漢の皇帝から授かったものです。卑弥呼の称号は「親魏倭王」です。"}, {"q": "次のア〜ウを、年代の古い順に並べたものはどれですか。\nア 卑弥呼が魏に使いを送る　イ 稲作の伝来　ウ 奴国の王が金印を授かる", "choices": ["ア→イ→ウ", "イ→ウ→ア", "ウ→イ→ア", "イ→ア→ウ"], "ans": 1, "exp": "稲作の伝来（前4世紀ごろ）→奴国の金印（57年）→卑弥呼の使い（239年）の順です。"}, {"q": "卑弥呼について、正しい説明はどれですか。", "choices": ["奴国の王で、後漢から金印を授かった", "古墳をつくり、大和政権を開いた", "漢の武帝と同じ時代に活やくした", "邪馬台国の女王で、魏に使いを送り、「親魏倭王」の称号を授かった"], "ans": 3, "exp": "卑弥呼は邪馬台国の女王で、239年に魏に使いを送りました。"}, {"q": "魏志倭人伝について、正しい説明はどれですか。", "choices": ["中国の歴史書で、邪馬台国や卑弥呼のことが書かれている", "奴国の金印のことが書かれた書物である", "日本で最初にできた歴史書である", "縄文時代の暮らしを記した書物である"], "ans": 0, "exp": "魏志倭人伝は、中国の歴史書で、卑弥呼や邪馬台国の様子を記しています。日本の歴史書ではありません。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

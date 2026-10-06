@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：① 四大文明の誕生</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">① 四大文明の誕生（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='kodai1';const PASS_SCORE=70;const NEXT="kodai2.html";
+const questions=[{"q": "人類の進化の順番として正しいものはどれですか。", "choices": ["新人→旧人→原人→猿人", "猿人→旧人→原人→新人", "原人→猿人→旧人→新人", "猿人→原人→旧人→新人"], "ans": 3, "exp": "最初に猿人があらわれ、原人・旧人を経て、新人（現在の私たちと同じ種類）になりました。"}, {"q": "旧石器時代のくらしについて、正しい説明はどれですか。", "choices": ["打製石器を使い、狩りや採集をして移動して暮らした", "青銅器を使って国をつくった", "磨製石器を使い、米づくりをして定住した", "鉄器を使って大きな墓を築いた"], "ans": 0, "exp": "旧石器時代は打製石器と、狩り・採集が特徴です。農耕や定住は新石器時代以降です。"}, {"q": "農耕・牧畜が始まったころに作られるようになった道具の組み合わせとして、正しいものはどれですか。", "choices": ["打製石器だけ", "鉄の武器と馬", "磨製石器と土器", "青銅の鏡と銅鐸"], "ans": 2, "exp": "農耕・牧畜が始まると、磨製石器や、食料を煮たりたくわえたりする土器が使われました。"}, {"q": "次のア〜ウを、時代の古い順に並べたものはどれですか。\nア 農耕・牧畜が始まる　イ 猿人が現れる　ウ ピラミッドが築かれる", "choices": ["ア→イ→ウ", "ウ→イ→ア", "イ→ア→ウ", "イ→ウ→ア"], "ans": 2, "exp": "猿人（約700万年前）→農耕・牧畜（約1万年前）→ピラミッド（のちの文明）の順です。"}, {"q": "エジプト文明について、正しい説明はどれですか。", "choices": ["ナイル川の流域で栄え、象形文字や太陽暦が使われた", "黄河の流域で栄え、甲骨文字が使われた", "インダス川の流域で栄え、くさび形文字が使われた", "チグリス川の流域で栄え、ハンムラビ法典が定められた"], "ans": 0, "exp": "エジプト＝ナイル川・象形文字・太陽暦・ピラミッドです。他は別の文明の特徴です。"}, {"q": "メソポタミア文明で使われた文字と暦の組み合わせとして、正しいものはどれですか。", "choices": ["象形文字と太陽暦", "甲骨文字と太陰暦", "くさび形文字と太陽暦", "くさび形文字と太陰暦"], "ans": 3, "exp": "メソポタミア＝くさび形文字・太陰暦です。象形文字・太陽暦はエジプトです。"}, {"q": "「目には目を、歯には歯を」の考え方で知られる、バビロニアの王が定めたものはどれですか。", "choices": ["十七条の憲法", "ハンムラビ法典", "コーラン", "十戒"], "ans": 1, "exp": "ハンムラビ王が定めたハンムラビ法典です。法を文字で定めた古い例として知られます。"}, {"q": "中国で、占いの結果を亀の甲羅や骨に刻んだ文字がつくられた国はどれですか。", "choices": ["殷", "魏", "秦", "漢"], "ans": 0, "exp": "殷で使われた甲骨文字が、のちの漢字のもとになりました。"}, {"q": "インダス文明の遺跡として正しいものはどれですか。", "choices": ["ピラミッド", "パルテノン神殿", "モヘンジョ・ダロ", "万里の長城"], "ans": 2, "exp": "インダス文明の代表的な都市遺跡はモヘンジョ・ダロです。他は別の文明の建造物です。"}, {"q": "古代ギリシャのアテネについて、正しい説明はどれですか。", "choices": ["神官だけで政治が行われた", "成人男性の市民が話し合って政治を行ったが、女性や奴隷は参加できなかった", "女性も含めたすべての人が政治に参加した", "王がすべてを決める専制政治が行われた"], "ans": 1, "exp": "アテネの民主政は、成人男性の市民だけが参加できました。"}, {"q": "イエスの教えをもとにしてできた宗教と聖典の組み合わせとして、正しいものはどれですか。", "choices": ["仏教と聖書", "イスラム教とコーラン", "ユダヤ教とコーラン", "キリスト教と聖書"], "ans": 3, "exp": "イエスの教えがキリスト教となり、聖書にまとめられました。コーランはイスラム教の聖典です。"}, {"q": "イスラム教について述べた文として、正しいものはどれですか。", "choices": ["紀元前5世紀に釈迦が説いた", "7世紀にムハンマドが説き、唯一の神アッラーを信じ、聖典はコーランである", "偶像を礼拝することをすすめている", "イエスの教えをもとにしてローマ帝国で広まった"], "ans": 1, "exp": "イスラム教はムハンマドが説き、偶像崇拝を禁止します。釈迦は仏教、イエスはキリスト教です。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

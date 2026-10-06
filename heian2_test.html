@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：② 平安時代②</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">② 平安時代②（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='heian2';const PASS_SCORE=70;const NEXT="heian_bunka.html";
+const questions=[{"q": "武士が成長した背景として、最も適切なものはどれですか。", "choices": ["唐の制度が日本に伝わった", "遣唐使が武器を持ち帰った", "地方の治安が乱れ、荘園や土地を守るために有力者が武装した", "朝廷が、全国の農民に武器を配った"], "ans": 2, "exp": "荘園が広がり治安が悪くなったため、有力な農民や豪族が自ら武装しました。"}, {"q": "939年ごろ、関東と瀬戸内海で反乱を起こした人物の組み合わせとして、正しいものはどれですか。", "choices": ["関東―平清盛／瀬戸内海―源義家", "関東―源義家／瀬戸内海―平清盛", "関東―平将門／瀬戸内海―藤原純友", "関東―藤原純友／瀬戸内海―平将門"], "ans": 2, "exp": "関東の平将門と瀬戸内海の藤原純友が、ほぼ同じころに反乱を起こしました。"}, {"q": "前九年の役・後三年の役について述べた文として、正しいものはどれですか。", "choices": ["東北地方の戦乱で、源氏が東国の武士との結びつきを強めた", "九州地方の戦乱で、平氏が勢力をのばした", "関東で将門が起こした反乱である", "瀬戸内海の海賊が起こした反乱である"], "ans": 0, "exp": "東北地方の戦乱で、源頼義・義家父子らが活躍し、源氏が東国で力を強めました。"}, {"q": "白河上皇が1086年に始めた政治について、正しいものはどれですか。", "choices": ["藤原氏が摂政として政治を行う摂関政治", "源氏が幕府を開く政治", "平氏が太政大臣として行う政治", "上皇が院で政治を行う院政"], "ans": 3, "exp": "天皇の位をゆずった上皇が、院で政治の実権をにぎる院政です。"}, {"q": "次の資料文を読んで、この政治のしくみを何というか、選びなさい。　「天皇が幼いころ位をゆずり、上皇となってから、院という御所で政治を行った。」", "choices": ["武家政治", "院政", "摂関政治", "律令政治"], "ans": 1, "exp": "位をゆずった上皇が院で行う政治は院政です。摂関政治は藤原氏が外戚として行う政治です。"}, {"q": "次のア〜ウを年代の古い順に並べたものはどれですか。　ア：平治の乱　イ：保元の乱　ウ：壇ノ浦の戦い", "choices": ["イ→ア→ウ", "イ→ウ→ア", "ア→イ→ウ", "ウ→イ→ア"], "ans": 0, "exp": "1156年の保元の乱、1159年の平治の乱、1185年の壇ノ浦の戦いの順です。"}, {"q": "1159年の平治の乱について述べた文として、正しいものはどれですか。", "choices": ["後白河天皇と崇徳上皇が戦った", "源頼朝が壇ノ浦で平氏を滅ぼした", "平清盛が源義朝を破り、義朝の子の頼朝は伊豆に流された", "源義朝が平清盛を破り、清盛は伊豆に流された"], "ans": 2, "exp": "平治の乱は清盛が義朝を破った戦いです。後白河天皇と崇徳上皇の戦いは保元の乱です。"}, {"q": "平清盛が1167年に、武士で初めてついた官職はどれですか。", "choices": ["関白", "太政大臣", "摂政", "征夷大将軍"], "ans": 1, "exp": "平清盛は、朝廷の最高の官職である太政大臣になりました。征夷大将軍は蝦夷を討つ軍の司令官でした。"}, {"q": "平清盛が進めた日宋貿易について、正しいものはどれですか。", "choices": ["唐との貿易を再開した", "博多を閉ざして、貿易をやめさせた", "ポルトガル船との貿易を進めた", "大輪田泊を整え、宋との貿易で財力を高めた"], "ans": 3, "exp": "清盛は大輪田泊（兵庫の港）を整え、宋との貿易の利益で力を強めました。"}, {"q": "平清盛が航海の安全を祈って厚く信仰し、社殿を整えた神社はどれですか。", "choices": ["出雲大社", "厳島神社", "伊勢神宮", "北野天満宮"], "ans": 1, "exp": "広島県の厳島神社です。清盛が厚く信仰しました。"}, {"q": "平氏への不満が高まった理由として、最も適切なものはどれですか。", "choices": ["平氏が武士を重く用いなかったから", "平氏が宋との貿易を禁止したから", "平氏が荘園をすべて国に返したから", "一族が高い地位を独占し、藤原氏と同じように貴族として力をふるったから"], "ans": 3, "exp": "清盛はむすめを天皇のきさきにして外戚となるなど、貴族のようなやり方で権力をにぎり、不満をまねきました。"}, {"q": "源平の戦いについて述べた文として、誤っているものはどれですか。", "choices": ["壇ノ浦の戦いは1156年に起こった", "源頼朝は伊豆で兵をあげた", "1185年に平氏は滅んだ", "源義経は一ノ谷・屋島で平氏を破った"], "ans": 0, "exp": "壇ノ浦の戦いは1185年です。1156年は保元の乱です。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

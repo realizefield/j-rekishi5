@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：⑤ 化政文化と新しい学問・天保の改革と幕府の衰え</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">⑤ 化政文化と新しい学問・天保の改革と幕府の衰え（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='edo5';const PASS_SCORE=70;const NEXT="ch15.html";
+const questions=[{"q": "化政文化の特色として最も適切なものはどれですか。", "choices": ["上方を中心に、町人が担い手となった文化", "京都を中心に、貴族が担い手となった文化", "大名・豪商が担い手となった文化", "江戸を中心に、庶民が担い手となった文化"], "ans": 3, "exp": "化政文化は江戸の庶民が担い手です。上方の町人の文化は元禄文化です。"}, {"q": "人物と作品の組み合わせとして正しいものはどれですか。", "choices": ["歌川広重＝東海道五十三次", "喜多川歌麿＝富嶽三十六景", "葛飾北斎＝東海道五十三次", "東洲斎写楽＝東海道中膝栗毛"], "ans": 0, "exp": "東海道五十三次は広重、富嶽三十六景は北斎、美人画は歌麿、役者絵は写楽です。"}, {"q": "十返舎一九の作品として正しいものはどれですか。", "choices": ["曽根崎心中", "奥の細道", "東海道中膝栗毛", "南総里見八犬伝"], "ans": 2, "exp": "南総里見八犬伝は曲亭馬琴、奥の細道は松尾芭蕉、曽根崎心中は近松門左衛門の作品です。"}, {"q": "本居宣長について正しい説明はどれですか。", "choices": ["異国船打払令を批判して処罰された", "解体新書を翻訳して蘭学を広めた", "古事記を研究して古事記伝を著し、国学を大成した", "全国を測量して日本地図をつくった"], "ans": 2, "exp": "本居宣長は国学の大成者です。"}, {"q": "「解体新書」について正しい説明はどれですか。", "choices": ["杉田玄白・前野良沢らが、オランダ語の解剖書を翻訳して出版した", "本居宣長が、日本の古典を研究して出版した", "シーボルトが、日本の動植物をまとめて出版した", "伊能忠敬が、全国の測量結果をまとめて出版した"], "ans": 0, "exp": "解体新書（1774年）は、「ターヘル・アナトミア」の翻訳です。"}, {"q": "寺子屋と藩校のちがいを説明した文として正しいものはどれですか。", "choices": ["寺子屋は武士の子弟が、藩校は庶民の子どもが学んだ", "どちらも庶民の子どもだけが学んだ", "どちらも幕府が設けた学校だった", "寺子屋は庶民の子どもが、藩校は武士の子弟が学んだ"], "ans": 3, "exp": "寺子屋は庶民、藩校は藩士の子弟のための学校です。"}, {"q": "大塩平八郎について正しい説明はどれですか。", "choices": ["異国船打払令を批判して処罰された蘭学者", "天保の飢饉のとき、大阪で貧しい人々を救うために乱を起こした元役人", "天保の改革を行った老中", "寛政の改革で出版統制を行った老中"], "ans": 1, "exp": "大塩の乱（1837年）は、大阪町奉行所の元役人が起こしました。"}, {"q": "異国船打払令に関するできごとを、年代の古い順に並べたものはどれですか。　ア：モリソン号事件　イ：異国船打払令が出される　ウ：蛮社の獄", "choices": ["イ→ア→ウ", "ウ→ア→イ", "ア→イ→ウ", "イ→ウ→ア"], "ans": 0, "exp": "異国船打払令（1825年）→モリソン号事件（1837年）→蛮社の獄（1839年）の順です。"}, {"q": "蛮社の獄で処罰された人物の組み合わせとして正しいものはどれですか。", "choices": ["伊能忠敬・シーボルト", "杉田玄白・前野良沢", "渡辺崋山・高野長英", "大塩平八郎・水野忠邦"], "ans": 2, "exp": "モリソン号事件での幕府の対応を批判した、渡辺崋山と高野長英が処罰されました。"}, {"q": "水野忠邦の天保の改革に含まれないものはどれですか。", "choices": ["上知令", "囲い米", "株仲間の解散", "人返しの法"], "ans": 1, "exp": "囲い米は松平定信の寛政の改革です。"}, {"q": "天保の改革で、水野忠邦が株仲間を解散させたねらいとして最も適切なものはどれですか。", "choices": ["商人に税を納めさせて、収入を増やすため", "農民を村に帰すため", "外国との貿易を盛んにするため", "商人の独占をなくして、物価を下げるため"], "ans": 3, "exp": "物価の上昇をおさえるねらいでしたが、かえって流通が混乱しました。田沼意次は、株仲間を奨励した点がちがいます。"}, {"q": "次の三つの改革の組み合わせとして、人物・内容が正しいものはどれですか。", "choices": ["天保の改革＝松平定信＝上知令", "享保の改革＝徳川吉宗＝上げ米", "享保の改革＝松平定信＝目安箱", "寛政の改革＝水野忠邦＝囲い米"], "ans": 1, "exp": "享保は吉宗（上げ米・目安箱）、寛政は定信（囲い米）、天保は水野忠邦（上知令）です。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

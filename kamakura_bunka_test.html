@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：⑥ 鎌倉文化</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">⑥ 鎌倉文化（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='kamakura_bunka';const PASS_SCORE=70;const NEXT="muromachi.html";
+const questions=[{"q": "鎌倉文化の特色として最も適切なものはどれですか。", "choices": ["大名や豪商による、豪華で雄大な文化", "貴族の生活を中心にした、優美で繊細な文化", "町人を中心にした、華やかな文化", "武士の気風を反映した、力強く素朴な文化"], "ans": 3, "exp": "鎌倉文化は武士の気風を反映した、力強い文化です。貴族の優美な文化は国風文化、豪華で雄大な文化は桃山文化です。"}, {"q": "鎌倉時代に新しい仏教が武士や庶民に広まった理由として、最も適切なものはどれですか。", "choices": ["戦乱や飢饉が続き、人々が救いを求めるなか、わかりやすい教えが説かれたから", "幕府が、他の宗教をすべて禁止したから", "朝廷が、新しい仏教を国の宗教に定めたから", "貴族だけが、寺に入れるようになったから"], "ans": 0, "exp": "新しい仏教は、念仏・題目・座禅など、だれにでもできる教えで、救いを求める人々に広まりました。"}, {"q": "浄土宗の開祖と、その教えの組み合わせとして正しいものはどれですか。", "choices": ["日蓮―題目をとなえる", "親鸞―踊り念仏", "法然―念仏をとなえれば極楽浄土へ行ける", "道元―ひたすら座禅をする"], "ans": 2, "exp": "法然が、念仏をとなえれば救われると説いて、浄土宗を開きました。"}, {"q": "「悪人こそが阿弥陀仏に救われる」という悪人正機を説き、浄土真宗を広めた人物はだれですか。", "choices": ["日蓮", "一遍", "親鸞", "法然"], "ans": 2, "exp": "親鸞。法然の弟子で、浄土真宗を広めました。"}, {"q": "踊りながら念仏をとなえる「踊り念仏」で、各地に教えを広めた人物はだれですか。", "choices": ["一遍", "道元", "法然", "栄西"], "ans": 0, "exp": "一遍。時宗の開祖です。"}, {"q": "「南無妙法蓮華経」の題目をとなえることを説き、他の宗派を厳しく批判した人物はだれですか。", "choices": ["親鸞", "栄西", "一遍", "日蓮"], "ans": 3, "exp": "日蓮。日蓮宗を開きました。"}, {"q": "（資料の要旨）「ただひたすら座禅に打ちこみなさい。」と説き、越前（福井県）の永平寺を開いた人物はだれですか。", "choices": ["栄西", "道元", "法然", "親鸞"], "ans": 1, "exp": "道元。曹洞宗を伝えました。栄西は臨済宗です。"}, {"q": "鎌倉仏教の開祖と宗派の組み合わせとして、誤っているものはどれですか。", "choices": ["栄西―曹洞宗", "法然―浄土宗", "日蓮―日蓮宗", "一遍―時宗"], "ans": 0, "exp": "栄西は臨済宗の開祖です。曹洞宗の開祖は道元です。"}, {"q": "鎌倉時代の文学作品と作者の組み合わせとして、正しいものはどれですか。", "choices": ["徒然草―清少納言", "方丈記―吉田兼好", "方丈記―鴨長明", "徒然草―鴨長明"], "ans": 2, "exp": "方丈記は鴨長明、徒然草は吉田兼好です。清少納言は、平安時代の枕草子の作者です。"}, {"q": "東大寺南大門の金剛力士像をつくった、代表的な仏師の組み合わせとして正しいものはどれですか。", "choices": ["観阿弥・世阿弥", "運慶・快慶", "雪舟・狩野永徳", "定朝・行基"], "ans": 1, "exp": "運慶・快慶らがつくった、力強く写実的な像です。"}, {"q": "平家物語について、正しい説明はどれですか。", "choices": ["世の無常をつづった随筆", "天皇の命で編集された和歌集", "源氏の栄えをえがいた物語で、貴族だけが読んだ", "平氏の栄えと滅亡をえがいた軍記物語で、琵琶法師が語り広めた"], "ans": 3, "exp": "平家物語は、琵琶法師が語り広めた軍記物語です。和歌集は新古今和歌集、随筆は方丈記・徒然草です。"}, {"q": "後鳥羽上皇の命で、藤原定家らが編集した和歌集はどれですか。", "choices": ["平家物語", "新古今和歌集", "古今和歌集", "万葉集"], "ans": 1, "exp": "新古今和歌集。古今和歌集は平安時代の初めごろ、万葉集は奈良時代に成立した和歌集です。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

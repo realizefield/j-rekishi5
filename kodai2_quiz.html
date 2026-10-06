@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>確認問題：② 中国統一とシルクロード</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .section-title { font-size: 16px; font-weight: bold; color: #2c3e8c; border-left: 4px solid #2c3e8c; padding-left: 12px; margin-bottom: 16px; }
+  .question-text { font-size: 17px; line-height: 2.2; color: #222; }
+  .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid #e74c3c; margin: 0 4px; text-align: center; cursor: pointer; font-weight: bold; color: #e74c3c; vertical-align: middle; min-height: 26px; }
+  .blank.waiting { color: transparent; background: #eee; border-radius: 4px; }
+  .blank.correct { background: #d4efdf; color: #27ae60; border-color: #27ae60; }
+  .word-bank { border: 1px solid #dde; border-radius: 8px; padding: 14px; display: flex; flex-wrap: wrap; gap: 8px; background: #f8f9fc; margin-top: 16px; }
+  .word-chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid #aab; background: #fff; cursor: pointer; font-size: 14px; transition: 0.15s; }
+  .word-chip:hover { border-color: #2c3e8c; background: #e8eeff; }
+  .word-chip.selected { border-color: #2c3e8c; background: #d0d9ff; font-weight: bold; }
+  .word-chip.used { opacity: 0.3; pointer-events: none; }
+  .controls { max-width: 720px; margin: 0 auto; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 16px 0; }
+  .btn { padding: 11px 24px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.15s; text-decoration: none; }
+  .btn-primary { background: #27ae60; color: #fff; box-shadow: 0 3px 0 #1e8a4d; }
+  .btn-primary:hover { background: #1e8a4d; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  .btn-orange { background: #e67e22; color: #fff; box-shadow: 0 3px 0 #c96a10; }
+  .result-bar { max-width: 720px; margin: 0 auto 16px; background: #fff; border-radius: 10px; padding: 14px 20px; display: none; text-align: center; border: 1px solid #dde; font-size: 16px; }
+  .result-bar.pass { border-color: #27ae60; color: #27ae60; background: #f0fff7; }
+  .result-bar.fail { border-color: #e74c3c; color: #e74c3c; background: #fff5f5; }
+
+  .blank{font-size:16px}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a><a class="back-btn" style="margin-left:8px;background:#7a4a1e" href="kodai2.html">📖 解説にもどる</a>
+<h1>✏️ 確認問題</h1><p class="unit-label">② 中国統一とシルクロード</p><div id="result-bar" class="result-bar"></div>
+<div class="card"><div class="section-title">春秋戦国と孔子</div><div class="question-text">周がおとろえて<span class="blank" data-ans="諸侯">諸侯</span>が争う<span class="blank" data-ans="春秋戦国時代">春秋戦国時代</span>になり、<span class="blank" data-ans="鉄器">鉄器</span>が広まった。<span class="blank" data-ans="孔子">孔子</span>は<span class="blank" data-ans="仁">仁</span>と礼を説く<span class="blank" data-ans="儒学">儒学</span>を開き、弟子が<span class="blank" data-ans="論語">論語</span>にまとめた。多くの思想家を<span class="blank" data-ans="諸子百家">諸子百家</span>という。</div><div class="word-bank" id="bank0"></div></div>
+<div class="card"><div class="section-title">秦の統一</div><div class="question-text">紀元前221年、<span class="blank" data-ans="秦">秦</span>の王の政が中国を統一し、<span class="blank" data-ans="始皇帝">始皇帝</span>と名乗った。<span class="blank" data-ans="郡県制">郡県制</span>や<span class="blank" data-ans="度量衡">度量衡</span>の統一を行い、<span class="blank" data-ans="匈奴">匈奴</span>を防ぐために<span class="blank" data-ans="万里の長城">万里の長城</span>を築いた。墓には<span class="blank" data-ans="兵馬俑">兵馬俑</span>がうめられた。</div><div class="word-bank" id="bank1"></div></div>
+<div class="card"><div class="section-title">漢の成立</div><div class="question-text">農民出身の<span class="blank" data-ans="劉邦">劉邦</span>が紀元前202年に<span class="blank" data-ans="漢">漢</span>をおこした。<span class="blank" data-ans="武帝">武帝</span>の時代に勢力を広げ、朝鮮半島に<span class="blank" data-ans="楽浪郡">楽浪郡</span>などをおいた。</div><div class="word-bank" id="bank2"></div></div>
+<div class="card"><div class="section-title">東西の交流</div><div class="question-text">漢の時代に<span class="blank" data-ans="シルクロード">シルクロード</span>が開け、<span class="blank" data-ans="絹">絹</span>などが西へ運ばれた。インドから<span class="blank" data-ans="仏教">仏教</span>が伝わり、後漢の<span class="blank" data-ans="蔡倫">蔡倫</span>が<span class="blank" data-ans="紙">紙</span>を改良した。</div><div class="word-bank" id="bank3"></div></div>
+<div class="controls"><button class="btn btn-secondary" onclick="startChallenge()">チャレンジ開始</button><button class="btn btn-primary" onclick="checkAnswers()">採点する</button><button class="btn btn-secondary" onclick="location.reload()">やり直す</button><a class="btn btn-orange" href="kodai2_test.html" style="display:inline-flex;align-items:center;text-decoration:none">🎯 テストに挑戦</a></div>
+<script>const UNIT_ID='kodai2';const BANKS=[["諸侯", "春秋戦国時代", "鉄器", "孔子", "仁", "儒学", "論語", "諸子百家"], ["秦", "始皇帝", "郡県制", "度量衡", "匈奴", "万里の長城", "兵馬俑"], ["劉邦", "漢", "武帝", "楽浪郡"], ["シルクロード", "絹", "仏教", "蔡倫", "紙"]];
+let sel=null;
+function startChallenge(){document.querySelectorAll('.blank').forEach(b=>{b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');b.onclick=()=>fillBlank(b);});BANKS.forEach((w,i)=>buildBank('bank'+i,w));document.getElementById('result-bar').style.display='none';}
+function buildBank(id,words){const b=document.getElementById(id);b.innerHTML='';[...words].sort(()=>Math.random()-0.5).forEach(w=>{const c=document.createElement('div');c.className='word-chip';c.textContent=w;c.onclick=()=>{if(c.classList.contains('used'))return;document.querySelectorAll('.word-chip.selected').forEach(x=>x.classList.remove('selected'));sel=c;c.classList.add('selected');};b.appendChild(c);});}
+function fillBlank(b){const card=b.closest('.card');if(!sel){if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');}return;}
+if(!card.contains(sel)){return;}
+if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});}
+b.textContent=sel.textContent;b.classList.remove('waiting');sel.classList.add('used');sel.classList.remove('selected');sel=null;}
+function checkAnswers(){let ok=0,total=0;document.querySelectorAll('.blank').forEach(b=>{total++;if(b.textContent===b.dataset.ans){b.classList.add('correct');ok++;}else b.classList.remove('correct');});
+const bar=document.getElementById('result-bar');bar.style.display='block';
+if(ok===total){bar.className='result-bar pass';bar.textContent='🎉 全問正解！('+ok+'/'+total+') テストにも挑戦してみよう！';try{const p=JSON.parse(localStorage.getItem('gamba_progress')||'{}');p[UNIT_ID]=p[UNIT_ID]||{};p[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(p));}catch(e){}}
+else{bar.className='result-bar fail';bar.textContent=ok+'/'+total+' 正解。赤色の空欄をもう一度確認しよう！';}window.scrollTo(0,0);}
+</script></body></html>

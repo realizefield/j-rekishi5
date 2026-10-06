@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：④ 元禄文化と享保・田沼・寛政の改革</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">④ 元禄文化と享保・田沼・寛政の改革（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='edo4';const PASS_SCORE=70;const NEXT="edo5.html";
+const questions=[{"q": "生類憐みの令を出した将軍はだれですか。", "choices": ["徳川家光", "徳川綱吉", "徳川家綱", "徳川吉宗"], "ans": 1, "exp": "5代将軍徳川綱吉です。吉宗は享保の改革を行った8代将軍です。"}, {"q": "元禄文化の特色として最も適切なものはどれですか。", "choices": ["江戸の庶民が担い手になった文化", "公家が担い手になった文化", "大名が担い手になった文化", "上方の町人が担い手になった文化"], "ans": 3, "exp": "元禄文化は上方（京都・大阪）の町人が担い手でした。江戸の庶民が担い手なのは化政文化です。"}, {"q": "人物と作品・分野の組み合わせとして正しいものはどれですか。", "choices": ["近松門左衛門＝人形浄瑠璃の脚本", "井原西鶴＝俳諧", "菱川師宣＝人形浄瑠璃", "松尾芭蕉＝浮世草子"], "ans": 0, "exp": "西鶴は浮世草子、芭蕉は俳諧、師宣は浮世絵です。"}, {"q": "「燕子花図屏風」を描いた画家はだれですか。", "choices": ["俵屋宗達", "菱川師宣", "尾形光琳", "狩野永徳"], "ans": 2, "exp": "尾形光琳の作品です。「風神雷神図屏風」は、光琳が学んだ俵屋宗達の作品です。"}, {"q": "新井白石が行った政策として正しいものはどれですか。", "choices": ["目安箱を置いた", "上げ米を行った", "貨幣の質をもとにもどした", "棄捐令を出した"], "ans": 2, "exp": "綱吉のころに質を落とした貨幣を、もとの質にもどしました。ほかは吉宗や定信の政策です。"}, {"q": "享保の改革について、誤っているものはどれですか。", "choices": ["囲い米を命じた", "上げ米を行った", "公事方御定書を定めた", "目安箱を設けた"], "ans": 0, "exp": "囲い米は寛政の改革の政策です。"}, {"q": "（資料の要旨）「大名は1万石につき100石の米を幕府に納めよ。かわりに江戸に住む期間を短くする」。この政策を行った将軍と改革の組み合わせとして正しいものはどれですか。", "choices": ["田沼意次＝株仲間の奨励", "松平定信＝寛政の改革", "水野忠邦＝天保の改革", "徳川吉宗＝享保の改革"], "ans": 3, "exp": "これは上げ米で、8代将軍吉宗の享保の改革の政策です。"}, {"q": "田沼意次の政治として正しいものはどれですか。", "choices": ["旗本・御家人の借金を帳消しにした", "株仲間を奨励して、営業税を取った", "朱子学以外の学問を禁止した", "江戸に出てきた農民を村に帰した"], "ans": 1, "exp": "田沼は商業を重んじ、株仲間を認めて税を納めさせました。ほかは定信の政策です。"}, {"q": "天明の飢饉の説明として最も適切なものはどれですか。", "choices": ["東北地方を中心に冷害による凶作が続き、百姓一揆や打ちこわしが増えた", "異国船が来航して起こった米不足のことである", "江戸の大火の後に起こった食料不足のことである", "西日本で台風が続いて起こり、一揆はほとんどなかった"], "ans": 0, "exp": "冷害や浅間山の噴火などで飢饉が起こり、各地で一揆や打ちこわしが増えました。"}, {"q": "寛政の改革で松平定信が行った政策の組み合わせとして正しいものはどれですか。", "choices": ["上げ米・足高の制", "株仲間の奨励・俵物の輸出", "囲い米・棄捐令", "株仲間の解散・上知令"], "ans": 2, "exp": "囲い米・棄捐令は寛政の改革です。株仲間の奨励・俵物は田沼、上げ米・足高の制は吉宗、株仲間の解散・上知令は水野忠邦です。"}, {"q": "次のア〜ウを、年代の古い順に並べたものはどれですか。　ア：寛政の改革　イ：享保の改革　ウ：田沼意次が老中になる", "choices": ["イ→ア→ウ", "イ→ウ→ア", "ウ→イ→ア", "ア→イ→ウ"], "ans": 1, "exp": "享保の改革（1716年）→田沼意次が老中に（1772年）→寛政の改革（1787年）の順です。"}, {"q": "「白河の清きに魚も棲みかねて もとの濁りの田沼恋しき」という狂歌からわかることとして最も適切なものはどれですか。", "choices": ["田沼意次の政治が、清らかで人々に好まれた", "享保の改革が成功したので、人々は喜んだ", "天保の改革で、水野忠邦が人気を集めた", "寛政の改革が厳しすぎて、人々は田沼の時代をなつかしんだ"], "ans": 3, "exp": "「白河の清き」は定信を、「濁り」は田沼をさします。定信の厳しい改革より、わいろの多い田沼の時代のほうがまだよいという皮肉です。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>
