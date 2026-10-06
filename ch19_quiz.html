@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>確認問題：⑥ 明治維新</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .section-title { font-size: 16px; font-weight: bold; color: #2c3e8c; border-left: 4px solid #2c3e8c; padding-left: 12px; margin-bottom: 16px; }
+  .question-text { font-size: 17px; line-height: 2.2; color: #222; }
+  .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid #e74c3c; margin: 0 4px; text-align: center; cursor: pointer; font-weight: bold; color: #e74c3c; vertical-align: middle; min-height: 26px; }
+  .blank.waiting { color: transparent; background: #eee; border-radius: 4px; }
+  .blank.correct { background: #d4efdf; color: #27ae60; border-color: #27ae60; }
+  .word-bank { border: 1px solid #dde; border-radius: 8px; padding: 14px; display: flex; flex-wrap: wrap; gap: 8px; background: #f8f9fc; margin-top: 16px; }
+  .word-chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid #aab; background: #fff; cursor: pointer; font-size: 14px; transition: 0.15s; }
+  .word-chip:hover { border-color: #2c3e8c; background: #e8eeff; }
+  .word-chip.selected { border-color: #2c3e8c; background: #d0d9ff; font-weight: bold; }
+  .word-chip.used { opacity: 0.3; pointer-events: none; }
+  .controls { max-width: 720px; margin: 0 auto; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 16px 0; }
+  .btn { padding: 11px 24px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.15s; text-decoration: none; }
+  .btn-primary { background: #27ae60; color: #fff; box-shadow: 0 3px 0 #1e8a4d; }
+  .btn-primary:hover { background: #1e8a4d; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  .btn-orange { background: #e67e22; color: #fff; box-shadow: 0 3px 0 #c96a10; }
+  .result-bar { max-width: 720px; margin: 0 auto 16px; background: #fff; border-radius: 10px; padding: 14px 20px; display: none; text-align: center; border: 1px solid #dde; font-size: 16px; }
+  .result-bar.pass { border-color: #27ae60; color: #27ae60; background: #f0fff7; }
+  .result-bar.fail { border-color: #e74c3c; color: #e74c3c; background: #fff5f5; }
+
+  .blank{font-size:16px}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a><a class="back-btn" style="margin-left:8px;background:#7a4a1e" href="ch19.html">📖 解説にもどる</a>
+<h1>✏️ 確認問題</h1><p class="unit-label">⑥ 明治維新</p><div id="result-bar" class="result-bar"></div>
+<div class="card"><div class="section-title">新政府の成立</div><div class="question-text">1868年に<span class="blank" data-ans="五箇条の御誓文">五箇条の御誓文</span>が出され、1869年の<span class="blank" data-ans="版籍奉還">版籍奉還</span>、1871年の<span class="blank" data-ans="廃藩置県">廃藩置県</span>で<span class="blank" data-ans="中央集権">中央集権</span>の国家ができた。</div><div class="word-bank" id="bank0"></div></div>
+<div class="card"><div class="section-title">身分制度</div><div class="question-text"><span class="blank" data-ans="華族">華族</span>・<span class="blank" data-ans="士族">士族</span>・<span class="blank" data-ans="平民">平民</span>の三つの身分となり、<span class="blank" data-ans="四民平等">四民平等</span>が進んだ。</div><div class="word-bank" id="bank1"></div></div>
+<div class="card"><div class="section-title">富国強兵</div><div class="question-text">1872年に<span class="blank" data-ans="学制">学制</span>、1873年に<span class="blank" data-ans="徴兵令">徴兵令</span>と<span class="blank" data-ans="地租改正">地租改正</span>が行われた。<span class="blank" data-ans="殖産興業">殖産興業</span>で<span class="blank" data-ans="富岡製糸場">富岡製糸場</span>などがつくられた。</div><div class="word-bank" id="bank2"></div></div>
+<div class="card"><div class="section-title">文明開化</div><div class="question-text"><span class="blank" data-ans="岩倉使節団">岩倉使節団</span>が欧米を視察した。<span class="blank" data-ans="文明開化">文明開化</span>が進み、<span class="blank" data-ans="福沢諭吉">福沢諭吉</span>が『学問のすゝめ』を書いた。</div><div class="word-bank" id="bank3"></div></div>
+<div class="card"><div class="section-title">国境と朝鮮</div><div class="question-text"><span class="blank" data-ans="琉球処分">琉球処分</span>で沖縄県がおかれ、<span class="blank" data-ans="樺太・千島交換条約">樺太・千島交換条約</span>が結ばれた。<span class="blank" data-ans="江華島事件">江華島事件</span>のあと<span class="blank" data-ans="日朝修好条規">日朝修好条規</span>が結ばれた。</div><div class="word-bank" id="bank4"></div></div>
+<div class="card"><div class="section-title">自由民権運動</div><div class="question-text"><span class="blank" data-ans="民撰議院設立建白書">民撰議院設立建白書</span>で国会開設が求められた。<span class="blank" data-ans="西南戦争">西南戦争</span>は最後の士族の反乱で、1881年に<span class="blank" data-ans="国会開設の勅諭">国会開設の勅諭</span>が出された。<span class="blank" data-ans="自由党">自由党</span>と<span class="blank" data-ans="立憲改進党">立憲改進党</span>がつくられた。</div><div class="word-bank" id="bank5"></div></div>
+<div class="card"><div class="section-title">憲法と議会</div><div class="question-text">1885年に<span class="blank" data-ans="内閣制度">内閣制度</span>ができ、1889年に<span class="blank" data-ans="大日本帝国憲法">大日本帝国憲法</span>が発布された。1890年に<span class="blank" data-ans="帝国議会">帝国議会</span>が開かれ、<span class="blank" data-ans="教育勅語">教育勅語</span>が出された。</div><div class="word-bank" id="bank6"></div></div>
+<div class="controls"><button class="btn btn-secondary" onclick="startChallenge()">チャレンジ開始</button><button class="btn btn-primary" onclick="checkAnswers()">採点する</button><button class="btn btn-secondary" onclick="location.reload()">やり直す</button><a class="btn btn-orange" href="ch19_test.html" style="display:inline-flex;align-items:center;text-decoration:none">🎯 テストに挑戦</a></div>
+<script>const UNIT_ID='ch19';const BANKS=[["五箇条の御誓文", "版籍奉還", "廃藩置県", "中央集権"], ["華族", "士族", "平民", "四民平等"], ["学制", "徴兵令", "地租改正", "殖産興業", "富岡製糸場"], ["岩倉使節団", "文明開化", "福沢諭吉"], ["琉球処分", "樺太・千島交換条約", "江華島事件", "日朝修好条規"], ["民撰議院設立建白書", "西南戦争", "国会開設の勅諭", "自由党", "立憲改進党"], ["内閣制度", "大日本帝国憲法", "帝国議会", "教育勅語"]];
+let sel=null;
+function startChallenge(){document.querySelectorAll('.blank').forEach(b=>{b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');b.onclick=()=>fillBlank(b);});BANKS.forEach((w,i)=>buildBank('bank'+i,w));document.getElementById('result-bar').style.display='none';}
+function buildBank(id,words){const b=document.getElementById(id);b.innerHTML='';[...words].sort(()=>Math.random()-0.5).forEach(w=>{const c=document.createElement('div');c.className='word-chip';c.textContent=w;c.onclick=()=>{if(c.classList.contains('used'))return;document.querySelectorAll('.word-chip.selected').forEach(x=>x.classList.remove('selected'));sel=c;c.classList.add('selected');};b.appendChild(c);});}
+function fillBlank(b){const card=b.closest('.card');if(!sel){if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');}return;}
+if(!card.contains(sel)){return;}
+if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});}
+b.textContent=sel.textContent;b.classList.remove('waiting');sel.classList.add('used');sel.classList.remove('selected');sel=null;}
+function checkAnswers(){let ok=0,total=0;document.querySelectorAll('.blank').forEach(b=>{total++;if(b.textContent===b.dataset.ans){b.classList.add('correct');ok++;}else b.classList.remove('correct');});
+const bar=document.getElementById('result-bar');bar.style.display='block';
+if(ok===total){bar.className='result-bar pass';bar.textContent='🎉 全問正解！('+ok+'/'+total+') テストにも挑戦してみよう！';try{const p=JSON.parse(localStorage.getItem('gamba_progress')||'{}');p[UNIT_ID]=p[UNIT_ID]||{};p[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(p));}catch(e){}}
+else{bar.className='result-bar fail';bar.textContent=ok+'/'+total+' 正解。赤色の空欄をもう一度確認しよう！';}window.scrollTo(0,0);}
+</script></body></html>

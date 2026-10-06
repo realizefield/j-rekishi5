@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：⑤ 江戸幕府の滅亡</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">⑤ 江戸幕府の滅亡（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='ch18';const PASS_SCORE=70;const NEXT="ch19.html";
+const questions=[{"q": "朝廷と幕府が協力して政治を進めようとする政策にもとづき、14代将軍徳川家茂の妻になった人物はだれですか。", "choices": ["北条政子", "和宮", "篤姫", "日野富子"], "ans": 1, "exp": "孝明天皇の妹の和宮です。公武合体の政策の一つでした。"}, {"q": "1863年に、薩摩藩とイギリスの間で起こった戦いはどれですか。", "choices": ["戊辰戦争", "四国艦隊下関砲撃事件", "禁門の変", "薩英戦争"], "ans": 3, "exp": "生麦事件の報復として、イギリス艦隊が鹿児島を砲撃した薩英戦争です。"}, {"q": "1864年に、英・仏・米・蘭の連合艦隊が攻撃した藩はどれですか。", "choices": ["長州藩", "薩摩藩", "会津藩", "土佐藩"], "ans": 0, "exp": "長州藩の下関の砲台が攻撃されました（四国艦隊下関砲撃事件）。"}, {"q": "薩英戦争と四国艦隊下関砲撃事件のあと、薩摩藩・長州藩が考え方を変えた内容として正しいものはどれですか。", "choices": ["鎖国を再び始めるべきだと考えた", "外国との貿易をやめるべきだと考えた", "攘夷が無理だとわかり、倒幕に向かった", "幕府を助けるべきだと考えた"], "ans": 2, "exp": "外国の軍事力の強さを知り、攘夷をあきらめて倒幕に向かいました。"}, {"q": "1866年に、薩摩藩と長州藩の仲立ちをした人物はだれですか。", "choices": ["井伊直弼", "勝海舟", "坂本龍馬", "吉田松陰"], "ans": 2, "exp": "土佐藩出身の坂本龍馬です。勝海舟は、江戸城の無血開城に関わった旧幕府の人物です。"}, {"q": "薩摩藩の人物と長州藩の人物の組み合わせとして、正しいものはどれですか。", "choices": ["薩摩藩：西郷隆盛・大久保利通　長州藩：木戸孝允・高杉晋作", "薩摩藩：木戸孝允・高杉晋作　長州藩：西郷隆盛・大久保利通", "薩摩藩：岩倉具視・井伊直弼　長州藩：大久保利通・高杉晋作", "薩摩藩：坂本龍馬・勝海舟　長州藩：西郷隆盛・木戸孝允"], "ans": 0, "exp": "薩摩藩は西郷隆盛・大久保利通、長州藩は木戸孝允・高杉晋作です。"}, {"q": "（資料の要旨）「政権を朝廷に返し、国の政治は、天皇のもとで行う。」このことを何といいますか。", "choices": ["五箇条の御誓文", "廃藩置県", "王政復古の大号令", "大政奉還"], "ans": 3, "exp": "1867年に徳川慶喜が政権を朝廷に返した、大政奉還です。"}, {"q": "王政復古の大号令の内容として正しいものはどれですか。", "choices": ["藩を廃止して県をおく", "天皇を中心とする新政府をつくり、将軍や幕府を廃止する", "幕府が政権を朝廷に返す", "旧幕府軍と新政府軍が京都で戦う"], "ans": 1, "exp": "1867年12月に出され、天皇中心の新政府をつくりました。幕府が政権を返したのは大政奉還です。"}, {"q": "次のア〜ウを年代の古い順に並べたものはどれですか。　ア：薩長同盟　イ：大政奉還　ウ：薩英戦争", "choices": ["ウ→ア→イ", "ア→ウ→イ", "ウ→イ→ア", "イ→ア→ウ"], "ans": 0, "exp": "薩英戦争（1863年）→薩長同盟（1866年）→大政奉還（1867年）の順です。"}, {"q": "1868年、西郷隆盛と勝海舟の話し合いによって実現したことはどれですか。", "choices": ["薩長同盟", "五稜郭の降伏", "江戸城の無血開城", "大政奉還"], "ans": 2, "exp": "新政府軍と旧幕府軍が戦わずに、江戸城が明けわたされました。"}, {"q": "戊辰戦争について正しい説明はどれですか。", "choices": ["薩摩藩とイギリスが戦った", "旧幕府軍と新政府軍が戦い、新政府軍が勝利した", "四国艦隊が長州藩を攻撃した", "長州藩が京都に攻めのぼって敗れた"], "ans": 1, "exp": "1868〜69年、新政府軍が勝利して終わりました。他は別の戦いです。"}, {"q": "戊辰戦争の最後の戦いが行われた場所と、その場所の城郭の組み合わせとして正しいものはどれですか。", "choices": ["江戸・江戸城", "京都・二条城", "会津・鶴ヶ城", "箱館・五稜郭"], "ans": 3, "exp": "旧幕府軍の榎本武揚らが五稜郭にたてこもり、降伏しました。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

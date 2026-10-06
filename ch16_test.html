@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：② 欧米の歴史と開国②（産業革命・列強のアジア進出）</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">② 欧米の歴史と開国②（産業革命・列強のアジア進出）（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='ch16';const PASS_SCORE=70;const NEXT="kindai10.html";
+const questions=[{"q": "産業革命が最初に起こった国と、その動力の組み合わせとして正しいものはどれですか。", "choices": ["イギリス＝蒸気機関", "ドイツ＝風車", "フランス＝水車", "アメリカ＝電気"], "ans": 0, "exp": "産業革命は、18世紀後半のイギリスで、ワットが改良した蒸気機関を動力に始まりました。"}, {"q": "資本主義の説明として最も適切なものはどれですか。", "choices": ["生産手段を社会全体で共有して、平等な社会をめざす考え方", "貴族が土地を支配して、農民に耕作させるしくみ", "資本家が労働者を雇って、利益を求めて生産を行う経済のしくみ", "国王が、国のすべての産業を決めるしくみ"], "ans": 2, "exp": "資本主義は、資本家が労働者を雇って利益を求める経済のしくみです。選択肢の2つ目は社会主義です。"}, {"q": "マルクスについて正しい説明はどれですか。", "choices": ["三権分立を主張した", "蒸気機関を改良して、産業革命を進めた", "「資本論」を著し、社会主義を主張した", "奴隷解放宣言を出した"], "ans": 2, "exp": "マルクスはドイツの思想家で、社会主義を主張しました。"}, {"q": "南北戦争の北部の特色として正しいものはどれですか。", "choices": ["商工業が発達し、保護貿易と奴隷制度の廃止を求めた", "国王による絶対王政が続いていた", "農奴の解放を求めて戦った", "綿花の栽培が中心で、自由貿易と奴隷制度を求めた"], "ans": 0, "exp": "北部は商工業が発達し、奴隷制度の廃止を求めました。綿花の栽培が中心で奴隷制度を求めたのは南部です。"}, {"q": "リンカンについて正しい説明はどれですか。", "choices": ["南部の代表として、奴隷制度を守った", "独立戦争の総司令官で、初代大統領になった", "プロイセンの首相として、ドイツを統一した", "第16代大統領で、南北戦争中に奴隷解放宣言を出した"], "ans": 3, "exp": "リンカンは、第16代大統領で、1863年に奴隷解放宣言を出しました。"}, {"q": "ドイツの統一について正しい説明はどれですか。", "choices": ["サルデーニャ王国を中心に、1861年に統一された", "プロイセンの首相ビスマルクが軍備を強め、1871年にドイツ帝国が成立した", "ナポレオンの支援で統一された", "アメリカの援助で統一された"], "ans": 1, "exp": "ドイツは、プロイセンのビスマルクの鉄血政策を中心に、1871年に統一されました。"}, {"q": "（図の要旨）イギリスからインドへ綿製品が送られ、インドから清へアヘンが送られ、清からイギリスへ茶が送られる。この貿易を何といいますか。", "choices": ["三角貿易", "朱印船貿易", "勘合貿易", "南蛮貿易"], "ans": 0, "exp": "イギリス・インド・清の3か国で行われた貿易を、三角貿易といいます。"}, {"q": "アヘン戦争の原因として最も適切なものはどれですか。", "choices": ["清がイギリスに戦争をしかけたから", "日本がアヘンを密輸したから", "清がアヘンの密輸を取りしまったから", "インドが清に侵入したから"], "ans": 2, "exp": "清がアヘンの取りしまりを行ったことに対して、イギリスが戦争をしかけました。"}, {"q": "南京条約の内容として正しいものはどれですか。", "choices": ["清はインドをイギリスに譲った", "清は香港をイギリスに譲った", "清は沿海州をロシアに譲った", "清は日本に台湾を譲った"], "ans": 1, "exp": "1842年の南京条約で、清は、香港をイギリスに譲り、賠償金をはらい、5港を開きました。"}, {"q": "インド大反乱について正しい説明はどれですか。", "choices": ["1857年に、洪秀全が反乱を起こし、清が滅亡した", "1861年に、ロシアが農奴を解放した", "1840年に、イギリスが清に勝利した", "1857年に、東インド会社のインド人兵士が反乱を起こし、鎮圧後にインドはイギリスの植民地になった"], "ans": 3, "exp": "インド大反乱は、シパーヒーの反乱をきっかけに広がり、鎮圧後、ムガル帝国は滅亡し、インドはイギリスの植民地になりました。"}, {"q": "1861年に起きたできごとの組み合わせとして正しいものはどれですか。", "choices": ["アヘン戦争の始まり・ドイツ帝国の成立", "アメリカの南北戦争の始まり・ロシアの農奴解放令", "ナポレオンの皇帝即位・権利章典", "インド大反乱・名誉革命"], "ans": 1, "exp": "1861年には、アメリカで南北戦争が始まり、ロシアで農奴解放令が出され、イタリア王国が成立しました。"}, {"q": "次のア〜ウを、年代の古い順に並べたものはどれですか。　ア：インド大反乱　イ：アヘン戦争　ウ：ドイツ帝国の成立", "choices": ["ウ→イ→ア", "ア→イ→ウ", "イ→ウ→ア", "イ→ア→ウ"], "ans": 3, "exp": "アヘン戦争（1840年）→インド大反乱（1857年）→ドイツ帝国の成立（1871年）の順です。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>
