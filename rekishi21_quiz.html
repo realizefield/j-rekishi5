@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>確認問題：① 第1次世界大戦</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .section-title { font-size: 16px; font-weight: bold; color: #2c3e8c; border-left: 4px solid #2c3e8c; padding-left: 12px; margin-bottom: 16px; }
+  .question-text { font-size: 17px; line-height: 2.2; color: #222; }
+  .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid #e74c3c; margin: 0 4px; text-align: center; cursor: pointer; font-weight: bold; color: #e74c3c; vertical-align: middle; min-height: 26px; }
+  .blank.waiting { color: transparent; background: #eee; border-radius: 4px; }
+  .blank.correct { background: #d4efdf; color: #27ae60; border-color: #27ae60; }
+  .word-bank { border: 1px solid #dde; border-radius: 8px; padding: 14px; display: flex; flex-wrap: wrap; gap: 8px; background: #f8f9fc; margin-top: 16px; }
+  .word-chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid #aab; background: #fff; cursor: pointer; font-size: 14px; transition: 0.15s; }
+  .word-chip:hover { border-color: #2c3e8c; background: #e8eeff; }
+  .word-chip.selected { border-color: #2c3e8c; background: #d0d9ff; font-weight: bold; }
+  .word-chip.used { opacity: 0.3; pointer-events: none; }
+  .controls { max-width: 720px; margin: 0 auto; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 16px 0; }
+  .btn { padding: 11px 24px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.15s; text-decoration: none; }
+  .btn-primary { background: #27ae60; color: #fff; box-shadow: 0 3px 0 #1e8a4d; }
+  .btn-primary:hover { background: #1e8a4d; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  .btn-orange { background: #e67e22; color: #fff; box-shadow: 0 3px 0 #c96a10; }
+  .result-bar { max-width: 720px; margin: 0 auto 16px; background: #fff; border-radius: 10px; padding: 14px 20px; display: none; text-align: center; border: 1px solid #dde; font-size: 16px; }
+  .result-bar.pass { border-color: #27ae60; color: #27ae60; background: #f0fff7; }
+  .result-bar.fail { border-color: #e74c3c; color: #e74c3c; background: #fff5f5; }
+
+  .blank{font-size:16px}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a><a class="back-btn" style="margin-left:8px;background:#7a4a1e" href="rekishi21.html">📖 解説にもどる</a>
+<h1>✏️ 確認問題</h1><p class="unit-label">① 第1次世界大戦</p><div id="result-bar" class="result-bar"></div>
+<div class="card"><div class="section-title">大戦前</div><div class="question-text">ドイツ・オーストリア・イタリアの<span class="blank" data-ans="三国同盟">三国同盟</span>と、イギリス・フランス・ロシアの<span class="blank" data-ans="三国協商">三国協商</span>が対立した。<span class="blank" data-ans="バルカン半島">バルカン半島</span>は「<span class="blank" data-ans="ヨーロッパの火薬庫">ヨーロッパの火薬庫</span>」とよばれた。</div><div class="word-bank" id="bank0"></div></div>
+<div class="card"><div class="section-title">大戦の始まり</div><div class="question-text">1914年、<span class="blank" data-ans="サラエボ事件">サラエボ事件</span>をきっかけに<span class="blank" data-ans="第1次世界大戦">第1次世界大戦</span>が始まった。戦車・飛行機・毒ガスなどの新兵器が使われ、<span class="blank" data-ans="総力戦">総力戦</span>となった。</div><div class="word-bank" id="bank1"></div></div>
+<div class="card"><div class="section-title">日本の参戦</div><div class="question-text">日本は<span class="blank" data-ans="日英同盟">日英同盟</span>を理由に参戦し、<span class="blank" data-ans="青島">青島</span>を占領した。1915年に中国へ<span class="blank" data-ans="二十一か条の要求">二十一か条の要求</span>をつきつけ、<span class="blank" data-ans="大戦景気">大戦景気</span>で工業が発達した。</div><div class="word-bank" id="bank2"></div></div>
+<div class="card"><div class="section-title">ロシア革命</div><div class="question-text">1917年に<span class="blank" data-ans="ロシア革命">ロシア革命</span>が起こり、<span class="blank" data-ans="レーニン">レーニン</span>が社会主義の政府をつくった。日本などは1918年に<span class="blank" data-ans="シベリア出兵">シベリア出兵</span>を行ったが、成果はなかった。1917年に<span class="blank" data-ans="アメリカ">アメリカ</span>が参戦し、1918年にドイツが降伏した。</div><div class="word-bank" id="bank3"></div></div>
+<div class="card"><div class="section-title">戦後の世界</div><div class="question-text">1919年の<span class="blank" data-ans="ヴェルサイユ条約">ヴェルサイユ条約</span>でドイツは巨額の賠償金を課された。1920年に<span class="blank" data-ans="国際連盟">国際連盟</span>が発足し、<span class="blank" data-ans="新渡戸稲造">新渡戸稲造</span>が事務局次長となった。朝鮮で<span class="blank" data-ans="三・一独立運動">三・一独立運動</span>、中国で<span class="blank" data-ans="五・四運動">五・四運動</span>が起こった。1921年の<span class="blank" data-ans="ワシントン会議">ワシントン会議</span>で日英同盟が廃止された。</div><div class="word-bank" id="bank4"></div></div>
+<div class="controls"><button class="btn btn-secondary" onclick="startChallenge()">チャレンジ開始</button><button class="btn btn-primary" onclick="checkAnswers()">採点する</button><button class="btn btn-secondary" onclick="location.reload()">やり直す</button><a class="btn btn-orange" href="rekishi21_test.html" style="display:inline-flex;align-items:center;text-decoration:none">🎯 テストに挑戦</a></div>
+<script>const UNIT_ID='rekishi21';const BANKS=[["三国同盟", "三国協商", "バルカン半島", "ヨーロッパの火薬庫"], ["サラエボ事件", "第1次世界大戦", "総力戦"], ["日英同盟", "青島", "二十一か条の要求", "大戦景気"], ["ロシア革命", "レーニン", "シベリア出兵", "アメリカ"], ["ヴェルサイユ条約", "国際連盟", "新渡戸稲造", "三・一独立運動", "五・四運動", "ワシントン会議"]];
+let sel=null;
+function startChallenge(){document.querySelectorAll('.blank').forEach(b=>{b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');b.onclick=()=>fillBlank(b);});BANKS.forEach((w,i)=>buildBank('bank'+i,w));document.getElementById('result-bar').style.display='none';}
+function buildBank(id,words){const b=document.getElementById(id);b.innerHTML='';[...words].sort(()=>Math.random()-0.5).forEach(w=>{const c=document.createElement('div');c.className='word-chip';c.textContent=w;c.onclick=()=>{if(c.classList.contains('used'))return;document.querySelectorAll('.word-chip.selected').forEach(x=>x.classList.remove('selected'));sel=c;c.classList.add('selected');};b.appendChild(c);});}
+function fillBlank(b){const card=b.closest('.card');if(!sel){if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');}return;}
+if(!card.contains(sel)){return;}
+if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});}
+b.textContent=sel.textContent;b.classList.remove('waiting');sel.classList.add('used');sel.classList.remove('selected');sel=null;}
+function checkAnswers(){let ok=0,total=0;document.querySelectorAll('.blank').forEach(b=>{total++;if(b.textContent===b.dataset.ans){b.classList.add('correct');ok++;}else b.classList.remove('correct');});
+const bar=document.getElementById('result-bar');bar.style.display='block';
+if(ok===total){bar.className='result-bar pass';bar.textContent='🎉 全問正解！('+ok+'/'+total+') テストにも挑戦してみよう！';try{const p=JSON.parse(localStorage.getItem('gamba_progress')||'{}');p[UNIT_ID]=p[UNIT_ID]||{};p[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(p));}catch(e){}}
+else{bar.className='result-bar fail';bar.textContent=ok+'/'+total+' 正解。赤色の空欄をもう一度確認しよう！';}window.scrollTo(0,0);}
+</script></body></html>

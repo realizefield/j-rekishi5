@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：⑧ 天平文化</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">⑧ 天平文化（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='nara2';const PASS_SCORE=70;const NEXT="heian1.html";
+const questions=[{"q": "天平文化の特色として最も適切なものはどれですか。", "choices": ["町人を中心とした粋な文化", "唐の文化の影響をうけた、仏教中心の国際色豊かな文化", "武士を中心とした素朴な文化", "日本独自の貴族の文化"], "ans": 1, "exp": "聖武天皇のころの、仏教と唐の影響が強い国際色豊かな文化です。"}, {"q": "天平文化が国際色豊かになった理由として最も適切なものはどれですか。", "choices": ["鎖国を行っていたから", "ヨーロッパと直接貿易したから", "南蛮貿易を行っていたから", "遣唐使が唐の文化を伝え、シルクロードを通って伝わった西アジアなどの文化の影響もうけたから"], "ans": 3, "exp": "遣唐使を通じて、唐の文化やシルクロードの文化が入ってきました。"}, {"q": "遣唐使として唐にわたり、唐の役人となって、帰国できなかった人物はだれですか。", "choices": ["阿倍仲麻呂", "小野妹子", "行基", "吉備真備"], "ans": 0, "exp": "阿倍仲麻呂です。小野妹子は遣隋使、吉備真備は帰国して活躍しました。"}, {"q": "鑑真について正しい説明はどれですか。", "choices": ["日本の僧で、遣唐使として唐にわたった", "天台宗を開いた", "唐の高僧で、失明をこえて来日し、戒律を伝えた", "民衆に仏教を広め、大仏づくりに協力した"], "ans": 2, "exp": "鑑真は唐の高僧です。民衆に広めたのは行基、天台宗を開いたのは最澄です。"}, {"q": "鑑真が開いた寺院はどれですか。", "choices": ["法隆寺", "薬師寺", "唐招提寺", "延暦寺"], "ans": 2, "exp": "唐招提寺です。法隆寺は聖徳太子、延暦寺は最澄に関係する寺です。"}, {"q": "正倉院について正しい説明はどれですか。", "choices": ["東大寺にある宝物の倉で、シルクロードを通って伝わった宝物も納められている", "平安京にある貴族の倉である", "鎌倉幕府の文書の倉である", "法隆寺にある仏像の倉である"], "ans": 0, "exp": "正倉院は東大寺にあり、聖武天皇ゆかりの品々などが納められています。"}, {"q": "正倉院の宝物から、天平文化についてどのようなことがわかりますか。", "choices": ["ヨーロッパと直接交流していたこと", "日本独自の文化が発達していたこと", "鉄砲が伝来していたこと", "西アジアやインドの影響もうけた、国際色豊かな文化だったこと"], "ans": 3, "exp": "ペルシャ風の宝物などから、シルクロードを通じた国際性がわかります。"}, {"q": "興福寺にある、天平彫刻の乾漆像として正しいものはどれですか。", "choices": ["金剛力士像", "阿修羅像", "百済観音", "釈迦三尊像"], "ans": 1, "exp": "阿修羅像です。釈迦三尊像・百済観音は飛鳥文化、金剛力士像は鎌倉文化です。"}, {"q": "古事記について正しい説明はどれですか。", "choices": ["712年にできた、神話や伝承をまとめた歴史書で、稗田阿礼の話を太安万侶が記録した", "日本最古の歌集である", "国ごとの地理や産物をまとめた書物である", "720年にできた、漢文で書かれた歴史書である"], "ans": 0, "exp": "古事記は712年の成立です。720年は日本書紀、国ごとの地理は風土記、歌集は万葉集です。"}, {"q": "日本書紀について正しい説明はどれですか。", "choices": ["国分寺の建立を命じた文書である", "712年に、太安万侶によってまとめられた歴史書である", "720年に、舎人親王らによって漢文でまとめられた歴史書である", "『源氏物語』のもとになった物語である"], "ans": 2, "exp": "日本書紀は漢文で書かれた、天皇中心の歴史書です。"}, {"q": "万葉集の特色として正しいものはどれですか。", "choices": ["武士の歌だけをおさめた", "天皇や貴族だけでなく、防人や農民の歌もおさめ、万葉仮名で書かれた", "天皇の歌だけをおさめた", "ひらがなだけで書かれた"], "ans": 1, "exp": "約4500首をおさめた日本最古の歌集です。ひらがなが広まったのは平安時代です。"}, {"q": "次のア〜ウを、年代の古い順に並べたものはどれですか。　ア：日本書紀の完成　イ：古事記の完成　ウ：鑑真の来日", "choices": ["イ→ウ→ア", "ア→イ→ウ", "ウ→イ→ア", "イ→ア→ウ"], "ans": 3, "exp": "古事記（712年）→日本書紀（720年）→鑑真の来日（753年）の順です。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>テスト：② 大正デモクラシーと大衆文化</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .q-num { font-size: 12px; color: #2c3e8c; font-weight: bold; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; line-height: 1.7; margin-bottom: 18px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { padding: 12px 16px; border: 2px solid #dde; border-radius: 8px; cursor: pointer; font-size: 15px; color: #333; transition: all 0.15s; background: #fafafa; }
+  .choice:hover { border-color: #2c3e8c; background: #f0f4ff; }
+  .choice.selected { border-color: #2c3e8c; background: #e8eeff; color: #2c3e8c; font-weight: bold; }
+  .choice.correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; font-weight: bold; }
+  .choice.wrong { border-color: #e74c3c; background: #fff0ef; color: #c0392b; }
+  .choice.show-correct { border-color: #27ae60; background: #e8fff2; color: #1e8a4d; }
+  .footer { max-width: 720px; margin: 0 auto; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.15s; }
+  .btn-primary { background: #2c3e8c; color: #fff; box-shadow: 0 3px 0 #1a2560; }
+  .btn-primary:hover { background: #1e2d6b; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  #result-screen { display: none; max-width: 720px; margin: 0 auto; text-align: center; }
+  .result-card { background: #fff; border-radius: 16px; padding: 40px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #e5e8f0; }
+  .result-score { font-size: 72px; font-weight: bold; margin: 10px 0; }
+  .result-score.pass { color: #27ae60; }
+  .result-score.fail { color: #e67e22; }
+  .result-msg { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+  .result-detail { font-size: 15px; color: #888; margin-bottom: 30px; }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; opacity: 0; animation: fall linear forwards; border-radius: 2px; pointer-events: none; z-index: 9999; }
+  @keyframes fall { 0%{top:-10px;opacity:1;transform:rotate(0deg)} 100%{top:110vh;opacity:0.3;transform:rotate(720deg)} }
+
+  .exp{display:none}
+  .review{text-align:left;margin-top:24px}
+  .rv{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;line-height:1.7;border:1px solid #ddd;background:#fafafa}
+  .rv.ok{border-color:#a9d3a4;background:#f2fbf1}.rv.ng{border-color:#e8b4ac;background:#fff4f2}
+  .rva{color:#555;font-size:13px;margin-top:4px}
+  .btn-orange{background:#e67e22;color:#fff;box-shadow:0 3px 0 #c96a10}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a>
+<h1>🎯 テスト</h1><p class="unit-label">② 大正デモクラシーと大衆文化（12問・合格70点）</p>
+<div id="quiz-screen"><div id="questions-area"></div><div class="footer"><button class="btn btn-secondary" onclick="location.href='index.html'">中断して戻る</button><button class="btn btn-primary" id="submit-btn" onclick="submitTest()">採点する</button></div></div>
+<div id="result-screen"><div class="result-card"><div id="result-msg" class="result-msg"></div><div id="result-score" class="result-score"></div><div id="result-detail" class="result-detail"></div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn btn-secondary" onclick="retryTest()">もう一度挑戦</button><button class="btn btn-orange" onclick="location.href=NEXT">次の単元へ ▶</button><button class="btn btn-primary" onclick="location.href='index.html'">単元一覧へ戻る</button></div><div id="review" class="review"></div></div></div>
+<script>const UNIT_ID='rekishi22';const PASS_SCORE=70;const NEXT="rekishi23.html";
+const questions=[{"q": "吉野作造がとなえた民本主義の説明として、最も適切なものはどれですか。", "choices": ["外国との貿易をやめるという考え方", "天皇をなくして国民が主権をもつという考え方", "政治は国民の考えや幸福を大切にして行うべきだという考え方", "国の力を強めるために軍備をふやすという考え方"], "ans": 2, "exp": "民本主義は、天皇主権のもとでも、国民の考えを政治に反映させるという考え方です。"}, {"q": "1912年から起こった護憲運動のスローガンとして適切なものはどれですか。", "choices": ["自由民権", "富国強兵", "閥族打破・憲政擁護", "尊王攘夷"], "ans": 2, "exp": "尾崎行雄・犬養毅らが「閥族打破・憲政擁護」をかかげました。"}, {"q": "1918年の米騒動の原因として、最も適切なものはどれですか。", "choices": ["シベリア出兵を見こした米の買いしめで、米の値段が上がったため", "日露戦争で増税されたため", "関東大震災が起こったため", "米が豊作で、米の値段が下がったため"], "ans": 0, "exp": "シベリア出兵を見こした米の買いしめなどで米価が急上昇しました。"}, {"q": "米騒動のあと、本格的な政党内閣をつくった人物はだれですか。", "choices": ["桂太郎", "加藤高明", "寺内正毅", "原敬"], "ans": 3, "exp": "立憲政友会の原敬です。「平民宰相」とよばれました。"}, {"q": "次のア〜ウを年代の古い順に並べたものはどれですか。　ア：関東大震災　イ：米騒動　ウ：普通選挙法の成立", "choices": ["ア→イ→ウ", "イ→ア→ウ", "イ→ウ→ア", "ウ→イ→ア"], "ans": 1, "exp": "1918年米騒動 → 1923年関東大震災 → 1925年普通選挙法です。"}, {"q": "1922年に結成された全国水平社の目的として正しいものはどれですか。", "choices": ["部落差別の撤廃", "8時間労働制の実施", "小作料の引き下げ", "女性の参政権の獲得"], "ans": 0, "exp": "被差別部落の人びとが、差別をなくすためにつくりました。"}, {"q": "平塚らいてうが1911年につくった団体はどれですか。", "choices": ["全国水平社", "日本農民組合", "青鞜社", "友愛会"], "ans": 2, "exp": "青鞜社です。のち、市川房枝らと新婦人協会もつくりました。"}, {"q": "1925年の普通選挙法で選挙権を与えられた人として正しいものはどれですか。", "choices": ["満25歳以上のすべての男女", "満25歳以上のすべての男子", "満20歳以上のすべての男女", "一定の税金を納めた男子"], "ans": 1, "exp": "満25歳以上のすべての男子です。女性には認められませんでした。"}, {"q": "（資料の要旨）「普通選挙の実現で、労働者や農民の代表が議会に進出するのではないか」。政府がこの不安から普通選挙法と同じ年に出した法律はどれですか。", "choices": ["学制", "治安警察法の廃止法", "工場法", "治安維持法"], "ans": 3, "exp": "1925年、社会主義の運動を取りしまるため、治安維持法が制定されました。"}, {"q": "1925年に東京・大阪・名古屋で始まったものはどれですか。", "choices": ["テレビ放送", "ラジオ放送", "トーキー映画", "円本の発売"], "ans": 1, "exp": "ラジオ放送です。のち全国に広がり、大衆文化の発達に大きな役割を果たしました。"}, {"q": "人物と作品の組み合わせとして正しいものはどれですか。", "choices": ["志賀直哉―『羅生門』", "芥川龍之介―『暗夜行路』", "武者小路実篤―『蟹工船』", "小林多喜二―『蟹工船』"], "ans": 3, "exp": "『羅生門』は芥川龍之介、『暗夜行路』は志賀直哉、『友情』は武者小路実篤の作品です。"}, {"q": "次の文のうち、大正時代について誤っているものはどれですか。", "choices": ["1925年の普通選挙法で、女性にも選挙権が与えられた", "1923年に関東大震災が起こった", "原敬が本格的な政党内閣をつくった", "吉野作造が民本主義をとなえた"], "ans": 0, "exp": "1925年の普通選挙法で選挙権を得たのは、満25歳以上の男子だけです。女性は認められませんでした。"}];
+let userAnswers=new Array(questions.length).fill(-1);
+function renderQuestions(){const area=document.getElementById('questions-area');area.innerHTML='';questions.forEach((q,qi)=>{const card=document.createElement('div');card.className='card';card.innerHTML='<div class="q-num">問題 '+(qi+1)+' / '+questions.length+'</div><div class="q-text"></div><div class="choices" id="choices-'+qi+'"></div><div class="exp" id="exp-'+qi+'"></div>';card.querySelector('.q-text').textContent=q.q;const ch=card.querySelector('.choices');q.choices.forEach((c,ci)=>{const d=document.createElement('div');d.className='choice';d.id='choice-'+qi+'-'+ci;d.innerHTML='<span style="font-weight:bold;margin-right:8px">'+['①','②','③','④'][ci]+'</span>';d.appendChild(document.createTextNode(c));d.onclick=()=>selectChoice(qi,ci);ch.appendChild(d);});area.appendChild(card);});}
+function selectChoice(qi,ci){userAnswers[qi]=ci;document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,i)=>el.classList.toggle('selected',i===ci));}
+function submitTest(){let correct=0;const wrongList=[];questions.forEach((q,qi)=>{const ua=userAnswers[qi];document.querySelectorAll('#choices-'+qi+' .choice').forEach((el,ci)=>{if(ci===q.ans)el.classList.add('show-correct');if(ua===ci&&ci!==q.ans)el.classList.add('wrong');if(ua===ci&&ci===q.ans){el.classList.add('correct');}el.onclick=null;});if(ua===q.ans)correct++;else wrongList.push(qi+1);});
+const score=Math.round(correct/questions.length*100);const pass=score>=PASS_SCORE;
+try{const prog=JSON.parse(localStorage.getItem('gamba_progress')||'{}');prog[UNIT_ID]=prog[UNIT_ID]||{};prog[UNIT_ID].testScore=score;prog[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(prog));}catch(e){}
+document.getElementById('quiz-screen').style.display='none';const rs=document.getElementById('result-screen');rs.style.display='block';
+const se=document.getElementById('result-score');se.textContent=score+'点';se.className='result-score '+(pass?'pass':'fail');
+document.getElementById('result-msg').textContent=pass?'🎉 合格！':'😅 おしい！もう一度解説を読んでみよう';
+document.getElementById('result-detail').textContent=correct+' / '+questions.length+' 問正解（合格ライン：'+PASS_SCORE+'点）'+(wrongList.length?'　まちがえた問題：'+wrongList.join('、')+'番':'');
+const rev=document.getElementById('review');rev.innerHTML='';questions.forEach((q,qi)=>{const ok=userAnswers[qi]===q.ans;const d=document.createElement('div');d.className='rv '+(ok?'ok':'ng');d.innerHTML='<b>問'+(qi+1)+(ok?' ○':' ×')+'</b>　';d.appendChild(document.createTextNode(q.q));const a=document.createElement('div');a.className='rva';a.textContent='答え：'+['①','②','③','④'][q.ans]+' '+q.choices[q.ans]+'　／　'+q.exp;d.appendChild(a);rev.appendChild(d);});
+if(pass)launchConfetti();window.scrollTo(0,0);}
+function retryTest(){userAnswers=new Array(questions.length).fill(-1);document.getElementById('result-screen').style.display='none';document.getElementById('quiz-screen').style.display='block';renderQuestions();window.scrollTo(0,0);}
+function launchConfetti(){const colors=['#f43f5e','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6'];for(let i=0;i<80;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(1.5+Math.random()*2)+'s';el.style.width=(6+Math.random()*8)+'px';el.style.height=(6+Math.random()*8)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);},i*30);}}
+renderQuestions();
+</script></body></html>

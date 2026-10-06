@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>確認問題：⑦ 奈良時代</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .section-title { font-size: 16px; font-weight: bold; color: #2c3e8c; border-left: 4px solid #2c3e8c; padding-left: 12px; margin-bottom: 16px; }
+  .question-text { font-size: 17px; line-height: 2.2; color: #222; }
+  .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid #e74c3c; margin: 0 4px; text-align: center; cursor: pointer; font-weight: bold; color: #e74c3c; vertical-align: middle; min-height: 26px; }
+  .blank.waiting { color: transparent; background: #eee; border-radius: 4px; }
+  .blank.correct { background: #d4efdf; color: #27ae60; border-color: #27ae60; }
+  .word-bank { border: 1px solid #dde; border-radius: 8px; padding: 14px; display: flex; flex-wrap: wrap; gap: 8px; background: #f8f9fc; margin-top: 16px; }
+  .word-chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid #aab; background: #fff; cursor: pointer; font-size: 14px; transition: 0.15s; }
+  .word-chip:hover { border-color: #2c3e8c; background: #e8eeff; }
+  .word-chip.selected { border-color: #2c3e8c; background: #d0d9ff; font-weight: bold; }
+  .word-chip.used { opacity: 0.3; pointer-events: none; }
+  .controls { max-width: 720px; margin: 0 auto; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 16px 0; }
+  .btn { padding: 11px 24px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.15s; text-decoration: none; }
+  .btn-primary { background: #27ae60; color: #fff; box-shadow: 0 3px 0 #1e8a4d; }
+  .btn-primary:hover { background: #1e8a4d; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  .btn-orange { background: #e67e22; color: #fff; box-shadow: 0 3px 0 #c96a10; }
+  .result-bar { max-width: 720px; margin: 0 auto 16px; background: #fff; border-radius: 10px; padding: 14px 20px; display: none; text-align: center; border: 1px solid #dde; font-size: 16px; }
+  .result-bar.pass { border-color: #27ae60; color: #27ae60; background: #f0fff7; }
+  .result-bar.fail { border-color: #e74c3c; color: #e74c3c; background: #fff5f5; }
+
+  .blank{font-size:16px}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a><a class="back-btn" style="margin-left:8px;background:#7a4a1e" href="nara1.html">📖 解説にもどる</a>
+<h1>✏️ 確認問題</h1><p class="unit-label">⑦ 奈良時代</p><div id="result-bar" class="result-bar"></div>
+<div class="card"><div class="section-title">平城京と律令国家</div><div class="question-text">710年、<span class="blank" data-ans="元明天皇">元明天皇</span>が唐の長安にならった<span class="blank" data-ans="平城京">平城京</span>に都を移した。中央の役所をおき、地方は国・郡・里に分け、<span class="blank" data-ans="国司">国司</span>と<span class="blank" data-ans="郡司">郡司</span>をおいた。</div><div class="word-bank" id="bank0"></div></div>
+<div class="card"><div class="section-title">班田収授法と税</div><div class="question-text">戸籍にもとづいて6歳以上の男女に<span class="blank" data-ans="口分田">口分田</span>をあたえる<span class="blank" data-ans="班田収授法">班田収授法</span>が行われた。農民は<span class="blank" data-ans="租">租</span>・<span class="blank" data-ans="調">調</span>・<span class="blank" data-ans="庸">庸</span>を納め、<span class="blank" data-ans="防人">防人</span>などの兵役にもついた。</div><div class="word-bank" id="bank1"></div></div>
+<div class="card"><div class="section-title">土地制度のくずれ</div><div class="question-text">723年の<span class="blank" data-ans="三世一身法">三世一身法</span>、743年の<span class="blank" data-ans="墾田永年私財法">墾田永年私財法</span>で土地の私有が広がり、貴族や寺院の私有地である<span class="blank" data-ans="荘園">荘園</span>がふえて、公地公民がくずれた。708年には<span class="blank" data-ans="和同開珎">和同開珎</span>がつくられた。</div><div class="word-bank" id="bank2"></div></div>
+<div class="card"><div class="section-title">聖武天皇の仏教政治</div><div class="question-text"><span class="blank" data-ans="聖武天皇">聖武天皇</span>は、社会不安をしずめるために、全国に<span class="blank" data-ans="国分寺">国分寺</span>を建て、<span class="blank" data-ans="東大寺">東大寺</span>に<span class="blank" data-ans="大仏">大仏</span>をつくった。<span class="blank" data-ans="行基">行基</span>は大仏づくりに協力した。</div><div class="word-bank" id="bank3"></div></div>
+<div class="controls"><button class="btn btn-secondary" onclick="startChallenge()">チャレンジ開始</button><button class="btn btn-primary" onclick="checkAnswers()">採点する</button><button class="btn btn-secondary" onclick="location.reload()">やり直す</button><a class="btn btn-orange" href="nara1_test.html" style="display:inline-flex;align-items:center;text-decoration:none">🎯 テストに挑戦</a></div>
+<script>const UNIT_ID='nara1';const BANKS=[["元明天皇", "平城京", "国司", "郡司"], ["口分田", "班田収授法", "租", "調", "庸", "防人"], ["三世一身法", "墾田永年私財法", "荘園", "和同開珎"], ["聖武天皇", "国分寺", "東大寺", "大仏", "行基"]];
+let sel=null;
+function startChallenge(){document.querySelectorAll('.blank').forEach(b=>{b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');b.onclick=()=>fillBlank(b);});BANKS.forEach((w,i)=>buildBank('bank'+i,w));document.getElementById('result-bar').style.display='none';}
+function buildBank(id,words){const b=document.getElementById(id);b.innerHTML='';[...words].sort(()=>Math.random()-0.5).forEach(w=>{const c=document.createElement('div');c.className='word-chip';c.textContent=w;c.onclick=()=>{if(c.classList.contains('used'))return;document.querySelectorAll('.word-chip.selected').forEach(x=>x.classList.remove('selected'));sel=c;c.classList.add('selected');};b.appendChild(c);});}
+function fillBlank(b){const card=b.closest('.card');if(!sel){if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');}return;}
+if(!card.contains(sel)){return;}
+if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});}
+b.textContent=sel.textContent;b.classList.remove('waiting');sel.classList.add('used');sel.classList.remove('selected');sel=null;}
+function checkAnswers(){let ok=0,total=0;document.querySelectorAll('.blank').forEach(b=>{total++;if(b.textContent===b.dataset.ans){b.classList.add('correct');ok++;}else b.classList.remove('correct');});
+const bar=document.getElementById('result-bar');bar.style.display='block';
+if(ok===total){bar.className='result-bar pass';bar.textContent='🎉 全問正解！('+ok+'/'+total+') テストにも挑戦してみよう！';try{const p=JSON.parse(localStorage.getItem('gamba_progress')||'{}');p[UNIT_ID]=p[UNIT_ID]||{};p[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(p));}catch(e){}}
+else{bar.className='result-bar fail';bar.textContent=ok+'/'+total+' 正解。赤色の空欄をもう一度確認しよう！';}window.scrollTo(0,0);}
+</script></body></html>

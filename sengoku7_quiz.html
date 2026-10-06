@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>確認問題：⑦ 桃山文化</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Meiryo", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 16px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #2c3e8c; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .back-btn:hover { background: #1e2d6b; }
+  h1 { text-align: center; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .unit-label { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  .card { max-width: 720px; margin: 0 auto 20px; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e5e8f0; }
+  .section-title { font-size: 16px; font-weight: bold; color: #2c3e8c; border-left: 4px solid #2c3e8c; padding-left: 12px; margin-bottom: 16px; }
+  .question-text { font-size: 17px; line-height: 2.2; color: #222; }
+  .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid #e74c3c; margin: 0 4px; text-align: center; cursor: pointer; font-weight: bold; color: #e74c3c; vertical-align: middle; min-height: 26px; }
+  .blank.waiting { color: transparent; background: #eee; border-radius: 4px; }
+  .blank.correct { background: #d4efdf; color: #27ae60; border-color: #27ae60; }
+  .word-bank { border: 1px solid #dde; border-radius: 8px; padding: 14px; display: flex; flex-wrap: wrap; gap: 8px; background: #f8f9fc; margin-top: 16px; }
+  .word-chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid #aab; background: #fff; cursor: pointer; font-size: 14px; transition: 0.15s; }
+  .word-chip:hover { border-color: #2c3e8c; background: #e8eeff; }
+  .word-chip.selected { border-color: #2c3e8c; background: #d0d9ff; font-weight: bold; }
+  .word-chip.used { opacity: 0.3; pointer-events: none; }
+  .controls { max-width: 720px; margin: 0 auto; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 16px 0; }
+  .btn { padding: 11px 24px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.15s; text-decoration: none; }
+  .btn-primary { background: #27ae60; color: #fff; box-shadow: 0 3px 0 #1e8a4d; }
+  .btn-primary:hover { background: #1e8a4d; }
+  .btn-secondary { background: #6c757d; color: #fff; box-shadow: 0 3px 0 #495057; }
+  .btn-orange { background: #e67e22; color: #fff; box-shadow: 0 3px 0 #c96a10; }
+  .result-bar { max-width: 720px; margin: 0 auto 16px; background: #fff; border-radius: 10px; padding: 14px 20px; display: none; text-align: center; border: 1px solid #dde; font-size: 16px; }
+  .result-bar.pass { border-color: #27ae60; color: #27ae60; background: #f0fff7; }
+  .result-bar.fail { border-color: #e74c3c; color: #e74c3c; background: #fff5f5; }
+
+  .blank{font-size:16px}
+</style></head><body>
+<a class="back-btn" href="index.html">← 単元一覧に戻る</a><a class="back-btn" style="margin-left:8px;background:#7a4a1e" href="sengoku7.html">📖 解説にもどる</a>
+<h1>✏️ 確認問題</h1><p class="unit-label">⑦ 桃山文化</p><div id="result-bar" class="result-bar"></div>
+<div class="card"><div class="section-title">桃山文化の特色</div><div class="question-text"><span class="blank" data-ans="桃山文化">桃山文化</span>は、<span class="blank" data-ans="戦国大名">戦国大名</span>や<span class="blank" data-ans="豪商">豪商</span>の気風を反映した、豪華で<span class="blank" data-ans="雄大">雄大</span>な文化である。名前は、秀吉が築いた<span class="blank" data-ans="伏見城">伏見城</span>のあった桃山にちなむ。</div><div class="word-bank" id="bank0"></div></div>
+<div class="card"><div class="section-title">城と絵画</div><div class="question-text">城には<span class="blank" data-ans="天守">天守</span>がつくられた。城の内部のふすまや屏風には<span class="blank" data-ans="障壁画">障壁画</span>が描かれ、<span class="blank" data-ans="狩野永徳">狩野永徳</span>は「唐獅子図屏風」を、<span class="blank" data-ans="長谷川等伯">長谷川等伯</span>は水墨画の「<span class="blank" data-ans="松林図屏風">松林図屏風</span>」を描いた。</div><div class="word-bank" id="bank1"></div></div>
+<div class="card"><div class="section-title">茶の湯と芸能</div><div class="question-text">堺の商人<span class="blank" data-ans="千利休">千利休</span>は<span class="blank" data-ans="わび茶">わび茶</span>を完成させた。<span class="blank" data-ans="出雲の阿国">出雲の阿国</span>の<span class="blank" data-ans="かぶき踊り">かぶき踊り</span>は<span class="blank" data-ans="歌舞伎">歌舞伎</span>の始まりとなり、琉球から伝わった<span class="blank" data-ans="三味線">三味線</span>を伴奏にする人形浄瑠璃も始まった。</div><div class="word-bank" id="bank2"></div></div>
+<div class="card"><div class="section-title">南蛮文化・朝鮮からの影響</div><div class="question-text">ポルトガル・スペイン人の伝えた<span class="blank" data-ans="南蛮文化">南蛮文化</span>では、パン・<span class="blank" data-ans="カステラ">カステラ</span>・カルタ・たばこ・時計が伝わり、<span class="blank" data-ans="活版印刷術">活版印刷術</span>も伝わった。朝鮮出兵で連れてこられた陶工によって、<span class="blank" data-ans="有田焼">有田焼</span>などが始まった。</div><div class="word-bank" id="bank3"></div></div>
+<div class="controls"><button class="btn btn-secondary" onclick="startChallenge()">チャレンジ開始</button><button class="btn btn-primary" onclick="checkAnswers()">採点する</button><button class="btn btn-secondary" onclick="location.reload()">やり直す</button><a class="btn btn-orange" href="sengoku7_test.html" style="display:inline-flex;align-items:center;text-decoration:none">🎯 テストに挑戦</a></div>
+<script>const UNIT_ID='sen7';const BANKS=[["桃山文化", "戦国大名", "豪商", "雄大", "伏見城"], ["天守", "障壁画", "狩野永徳", "長谷川等伯", "松林図屏風"], ["千利休", "わび茶", "出雲の阿国", "かぶき踊り", "歌舞伎", "三味線"], ["南蛮文化", "カステラ", "活版印刷術", "有田焼"]];
+let sel=null;
+function startChallenge(){document.querySelectorAll('.blank').forEach(b=>{b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');b.onclick=()=>fillBlank(b);});BANKS.forEach((w,i)=>buildBank('bank'+i,w));document.getElementById('result-bar').style.display='none';}
+function buildBank(id,words){const b=document.getElementById(id);b.innerHTML='';[...words].sort(()=>Math.random()-0.5).forEach(w=>{const c=document.createElement('div');c.className='word-chip';c.textContent=w;c.onclick=()=>{if(c.classList.contains('used'))return;document.querySelectorAll('.word-chip.selected').forEach(x=>x.classList.remove('selected'));sel=c;c.classList.add('selected');};b.appendChild(c);});}
+function fillBlank(b){const card=b.closest('.card');if(!sel){if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});b.textContent='？';b.classList.add('waiting');b.classList.remove('correct');}return;}
+if(!card.contains(sel)){return;}
+if(b.textContent!=='？'){const old=b.textContent;let f=false;card.querySelectorAll('.word-chip').forEach(c=>{if(!f&&c.textContent===old&&c.classList.contains('used')){c.classList.remove('used');f=true;}});}
+b.textContent=sel.textContent;b.classList.remove('waiting');sel.classList.add('used');sel.classList.remove('selected');sel=null;}
+function checkAnswers(){let ok=0,total=0;document.querySelectorAll('.blank').forEach(b=>{total++;if(b.textContent===b.dataset.ans){b.classList.add('correct');ok++;}else b.classList.remove('correct');});
+const bar=document.getElementById('result-bar');bar.style.display='block';
+if(ok===total){bar.className='result-bar pass';bar.textContent='🎉 全問正解！('+ok+'/'+total+') テストにも挑戦してみよう！';try{const p=JSON.parse(localStorage.getItem('gamba_progress')||'{}');p[UNIT_ID]=p[UNIT_ID]||{};p[UNIT_ID].studyDone=true;localStorage.setItem('gamba_progress',JSON.stringify(p));}catch(e){}}
+else{bar.className='result-bar fail';bar.textContent=ok+'/'+total+' 正解。赤色の空欄をもう一度確認しよう！';}window.scrollTo(0,0);}
+</script></body></html>
